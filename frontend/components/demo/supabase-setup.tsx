@@ -37,7 +37,7 @@ const SupabaseSetup: React.FC<{ user: User }> = ({ user }) => {
   } = useSupabaseSetup(user, () => {});
 
   const { complianceDetailsLoading, complianceDetails } = useComplainceDetails(
-    user?.isSupabaseSetup
+    Boolean(user?.isSupabaseSetup)
   );
   if (complianceDetailsLoading) {
     return <ComplianceStatusLoading />;
