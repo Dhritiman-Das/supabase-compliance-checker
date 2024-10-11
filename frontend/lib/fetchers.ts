@@ -25,9 +25,9 @@ export async function getUserDetails(): Promise<any> {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`);
+      // }
 
       const user = await response.json();
       return user;

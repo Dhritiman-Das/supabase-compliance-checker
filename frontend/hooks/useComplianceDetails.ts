@@ -34,9 +34,9 @@ export const useComplainceDetails = (isSupabaseSetup: boolean) => {
 
       setComplianceDetailsLoading(false);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`);
+      // }
 
       const complianceData = await response.json();
       setComplianceDetails(complianceData);
