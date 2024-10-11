@@ -20,6 +20,9 @@ import ComplianceStatusLoading from "./compliance-loading";
 import DangerZone from "./danger-zone";
 import SqlQueriesCodeBlock from "./sql-queries-code-block";
 import Link from "next/link";
+import AIChatDrawer from "./ai-chat-drawer";
+import { Compliance } from "@/types/compliance";
+import { generateSystemPrompt } from "@/lib/helper";
 
 interface User {
   isSupabaseSetup: boolean;
@@ -46,13 +49,18 @@ const SupabaseSetup: React.FC<{ user: User }> = ({ user }) => {
     return <ComplianceStatusLoading />;
   }
 
-  if (user.isSupabaseSetup) {
+  if (user?.isSupabaseSetup) {
     return (
       <>
         <div className="space-y-6 p-6  min-h-screen">
-          <h1 className="text-3xl font-bold text-start mb-8">
-            Supabase Compliance Status
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-start mb-8">
+              Supabase Compliance Status
+            </h1>
+            <AIChatDrawer
+              systemPrompt={generateSystemPrompt(complianceDetails)}
+            />
+          </div>
           <ComplianceStatus
             projectPITRStatus={complianceDetails?.projectPitrStatus}
             tableRLSStatus={complianceDetails?.tableRlsStatus}

@@ -16,9 +16,9 @@ export const useSupabaseSetup = (
   const [isLoading, setIsLoading] = useState(false);
   const [isSupabaseSetup, setIsSupabaseSetup] = useState(false);
   const [supabaseConfig, setSupabaseConfig] = useState({
-    supabaseUrl: user.supabaseUrl || "",
-    supabaseAnonKey: user.supabaseAnonKey || "",
-    supabaseApiKey: user.supabaseApiKey || "",
+    supabaseUrl: user?.supabaseUrl || "",
+    supabaseAnonKey: user?.supabaseAnonKey || "",
+    supabaseApiKey: user?.supabaseApiKey || "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
