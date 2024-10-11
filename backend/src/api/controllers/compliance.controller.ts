@@ -25,3 +25,22 @@ export const checkCompliance = async (req: RequestWithUser, res: Response) => {
     return res.status(500).json({ error: "This is an unfortunate error" });
   }
 };
+
+export const getEvidenceLogs = async (req: RequestWithUser, res: Response) => {
+  const user = req.user;
+  const userDetails = await userService.getMyDetails(user.email);
+  const { supabaseAnonKey, supabaseUrl } = userDetails;
+  if (!supabaseUrl || !supabaseAnonKey) {
+    res.status(400).json({ error: "Missing Supabase credentials" });
+  }
+  try {
+    const complianceStatus = await complianceChecker.getEvidenceLogs(
+      supabaseUrl,
+      supabaseAnonKey
+    );
+    return res.status(200).json(complianceStatus);
+  } catch (error) {
+    console.log({ error });
+    return res.status(500).json({ error: "This is an unfortunate error" });
+  }
+};

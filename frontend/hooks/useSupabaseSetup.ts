@@ -57,6 +57,14 @@ export const useSupabaseSetup = (
     }
   };
 
+  const startAuth = async () => {
+    try {
+      setStep(2);
+    } catch (error) {
+      console.error("Error with the code blocks:", error);
+    }
+  };
+
   return {
     step,
     supabaseConfig,
@@ -64,5 +72,6 @@ export const useSupabaseSetup = (
     handleInputChange,
     handleSubmit,
     startAudit,
+    startAuth,
   };
 };

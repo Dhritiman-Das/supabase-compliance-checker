@@ -88,6 +88,24 @@ export class ComplianceService {
       throw error;
     }
   }
+
+  async getEvidenceLogs(supabaseUrl: string, supabaseAnonKey: string) {
+    try {
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      const { data, error } = await supabase
+        .from("evidence_log")
+        .select("*")
+        .order("timestamp", { ascending: false })
+        .limit(10);
+
+      if (error) throw error;
+
+      return data;
+    } catch (error) {
+      console.log({ error });
+      throw error;
+    }
+  }
   async checkCompliance(
     supabaseUrl: string,
     supabaseAnonKey: string,

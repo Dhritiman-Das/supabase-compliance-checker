@@ -18,6 +18,8 @@ import ComplianceStatus from "./compliance-status";
 import { useComplainceDetails } from "@/hooks/useComplianceDetails";
 import ComplianceStatusLoading from "./compliance-loading";
 import DangerZone from "./danger-zone";
+import SqlQueriesCodeBlock from "./sql-queries-code-block";
+import Link from "next/link";
 
 interface User {
   isSupabaseSetup: boolean;
@@ -34,6 +36,7 @@ const SupabaseSetup: React.FC<{ user: User }> = ({ user }) => {
     handleInputChange,
     handleSubmit,
     startAudit,
+    startAuth,
   } = useSupabaseSetup(user, () => {});
 
   const { complianceDetailsLoading, complianceDetails } = useComplainceDetails(
@@ -71,13 +74,28 @@ const SupabaseSetup: React.FC<{ user: User }> = ({ user }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <ComplianceInfo />
+            {step === 0 && <ComplianceInfo />}
+            {step === 1 && (
+              <>
+                Setup your SQL queries in Supabase. Click{" "}
+                <Link
+                  href={
+                    "https://supabase.com/docs/guides/database/functions?queryGroups=language&language=sql"
+                  }
+                  target="_blank"
+                >
+                  here
+                </Link>{" "}
+                to know more
+              </>
+            )}
           </motion.div>
         </CardDescription>
       </CardHeader>
       <CardContent>
         {step === 0 && <></>}
-        {step === 1 && (
+        {step === 1 && <SqlQueriesCodeBlock />}
+        {step === 2 && (
           <ConfigurationStep
             supabaseConfig={supabaseConfig}
             handleInputChange={handleInputChange}
@@ -96,6 +114,13 @@ const SupabaseSetup: React.FC<{ user: User }> = ({ user }) => {
           </>
         )}
         {step === 1 && (
+          <>
+            <Button onClick={startAuth} className="mr-2" disabled={isLoading}>
+              {isLoading ? "Procceding..." : "Procced"}
+            </Button>
+          </>
+        )}
+        {step === 2 && (
           <Button onClick={handleSubmit} disabled={isLoading}>
             {isLoading ? "Submitting..." : "Submit Configuration"}
           </Button>

@@ -1,5 +1,8 @@
 import express from "express";
-import { checkCompliance } from "../controllers/compliance.controller";
+import {
+  checkCompliance,
+  getEvidenceLogs,
+} from "../controllers/compliance.controller";
 import { RequestWithUser } from "src/types/global";
 import authenticateJWT from "../middlewares/authenticateJwt";
 
@@ -88,6 +91,10 @@ const router = express.Router();
  */
 router.get("/check-status", authenticateJWT, (req, res) => {
   checkCompliance(req as RequestWithUser, res);
+});
+
+router.get("/evidence-logs", authenticateJWT, (req, res) => {
+  getEvidenceLogs(req as RequestWithUser, res);
 });
 
 export { router as complianceRoutes };
